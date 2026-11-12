@@ -1,6 +1,7 @@
 
 import { createPost, deletePost } from "./postManager.js";
 
+// Load saved posts from Local Storage
 let posts = JSON.parse(localStorage.getItem("posts")) || [
     {
         id: 1,
@@ -14,36 +15,45 @@ let posts = JSON.parse(localStorage.getItem("posts")) || [
     }
 ];
 
+// Save posts to Local Storage
 function savePosts() {
     localStorage.setItem("posts", JSON.stringify(posts));
 }
 
+// Display all blog posts
 function renderPosts() {
     const postList = document.getElementById("post-list");
     postList.innerHTML = "";
 
     posts.forEach(post => {
         const article = document.createElement("article");
+
         const heading = document.createElement("h2");
         heading.textContent = post.title;
 
         const content = document.createElement("div");
-        content.innerHTML = DOMPurify.sanitize(marked.parse(post.content));
+        content.innerHTML = DOMPurify.sanitize(
+            marked.parse(post.content)
+        );
 
-        const button = document.createElement("button");
-        button.textContent = "Delete";
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
 
-        button.addEventListener("click", () => {
+        deleteButton.addEventListener("click", () => {
             posts = deletePost(posts, post.id);
             savePosts();
             renderPosts();
         });
 
-        article.append(heading, content, button);
+        article.appendChild(heading);
+        article.appendChild(content);
+        article.appendChild(deleteButton);
+
         postList.appendChild(article);
     });
 }
 
+// Create a new blog post
 document.getElementById("post-form").addEventListener("submit", event => {
     event.preventDefault();
 
@@ -52,12 +62,15 @@ document.getElementById("post-form").addEventListener("submit", event => {
 
     try {
         posts = createPost(posts, title, content);
+
         savePosts();
         renderPosts();
+
         event.target.reset();
     } catch (error) {
         alert(error.message);
     }
 });
 
+// Display posts when the page loads
 renderPosts();
