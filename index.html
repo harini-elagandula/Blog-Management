@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Blog Application</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+</head>
+<body>
+
+    <h1>My Mini Blog</h1>
+
+    <div class="blog-container">
+
+        <h2>Create New Post</h2>
+
+        <form id="blogForm">
+            <input type="text" id="title"
+                placeholder="Enter blog title" required>
+
+            <textarea id="content"
+                placeholder="Write your blog using Markdown"
+                required></textarea>
+
+            <button type="submit">Add Post</button>
+        </form>
+
+        <h2>Blog Posts</h2>
+
+        <div id="posts"></div>
+
+    </div>
+
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>

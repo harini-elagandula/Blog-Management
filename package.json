@@ -1,0 +1,13 @@
+{
+    "type": "module",
+    "scripts": {
+        "test": "node --test"
+    },
+    "name": "blog-management",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
